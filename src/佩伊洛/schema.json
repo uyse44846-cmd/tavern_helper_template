@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "世界": {
+      "type": "object",
+      "properties": {
+        "当前日期": {
+          "type": "string"
+        },
+        "当前时间": {
+          "type": "string"
+        },
+        "时间阶段": {
+          "type": "string"
+        },
+        "当前天气": {
+          "type": "string"
+        },
+        "当前地点": {
+          "type": "string"
+        },
+        "是否NSFW": {
+          "type": "boolean"
+        },
+        "下一回合界面选择": {
+          "default": "立绘",
+          "type": "string",
+          "enum": [
+            "立绘",
+            "galgame"
+          ]
+        }
+      },
+      "required": [
+        "当前日期",
+        "当前时间",
+        "时间阶段",
+        "当前天气",
+        "当前地点"
+      ]
+    },
+    "佩伊洛": {
+      "type": "object",
+      "properties": {
+        "好感度": {
+          "type": "number"
+        },
+        "当前服装": {
+          "default": "校服",
+          "type": "string",
+          "enum": [
+            "校服",
+            "便服",
+            "睡衣",
+            "连衣裙"
+          ]
+        },
+        "当前表情": {
+          "default": "微笑",
+          "type": "string",
+          "enum": [
+            "微笑",
+            "害羞",
+            "惊讶",
+            "生气",
+            "哭泣",
+            "坏笑",
+            "微微脸红",
+            "拥抱",
+            "擦眼泪",
+            "星星眼",
+            "晕晕眼",
+            "流口水"
+          ]
+        }
+      },
+      "required": [
+        "好感度"
+      ]
+    },
+    "主线事件": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "事件ID": {
+          "type": "string"
+        },
+        "当前状态": {
+          "default": "未触发",
+          "type": "string",
+          "enum": [
+            "未触发",
+            "进行中",
+            "已完成"
+          ]
+        },
+        "当前阶段": {
+          "default": "引入",
+          "type": "string",
+          "enum": [
+            "引入",
+            "发展",
+            "高潮",
+            "结局"
+          ]
+        },
+        "主题": {
+          "type": "string"
+        },
+        "描述": {
+          "type": "string"
+        },
+        "冷却回合": {
+          "type": "number"
+        },
+        "大纲": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "引入": {
+              "type": "string"
+            },
+            "发展": {
+              "type": "string"
+            },
+            "高潮": {
+              "type": "string"
+            },
+            "结局": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "已完成事件": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "事件ID": {
+            "type": "string"
+          },
+          "主题": {
+            "type": "string"
+          },
+          "结局摘要": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "事件ID",
+          "主题",
+          "结局摘要"
+        ]
+      }
+    }
+  },
+  "required": [
+    "世界",
+    "佩伊洛"
+  ]
+}

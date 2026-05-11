@@ -1,0 +1,12 @@
+{
+  "scriptName": "[不发送]去除变量更新",
+  "enabled": true,
+  "findRegex": "/<update(?:variable)?>(?:(?!.*<\\/update(?:variable)?>).*$|.*<\\/update(?:variable)?>)/gsi",
+  "replaceString": "",
+  "trimStrings": [],
+  "placement": [1, 2],
+  "substituteRegex": 2,
+  "minDepth": null,
+  "maxDepth": 3,
+  "runOnEdit": true
+}

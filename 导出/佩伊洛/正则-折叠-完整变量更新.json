@@ -1,0 +1,12 @@
+{
+  "scriptName": "[折叠]完整变量更新",
+  "enabled": true,
+  "findRegex": "/<update(?:variable)?>\\s*(.*)\\s*<\\/update(?:variable)?>/gsi",
+  "replaceString": "\n<details>\n<summary>变量更新情况</summary>\n$1\n</details>",
+  "trimStrings": [],
+  "placement": [1, 2],
+  "substituteRegex": 1,
+  "minDepth": null,
+  "maxDepth": null,
+  "runOnEdit": true
+}

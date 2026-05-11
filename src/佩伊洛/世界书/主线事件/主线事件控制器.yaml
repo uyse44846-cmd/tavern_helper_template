@@ -1,0 +1,146 @@
+@@private
+<%_
+/* ═══════ 主线事件控制器 ═══════
+ * 读取 MVU 变量，根据好感度、游戏日期、事件状态等条件
+ * 选择并加载对应的事件世界书条目
+ *
+ * 支持两种事件类型：
+ *   事件链（链式）：按顺序触发，需满足日期窗口+好感度
+ *   独立事件：不受顺序和日期限制，仅判断好感度
+ */
+
+// ── 读取变量 ──
+var _好感度 = getvar('stat_data.佩伊洛.好感度', { defaults: 0 });
+var _日期   = getvar('stat_data.世界.当前日期', { defaults: '' });
+var _事件状态 = getvar('stat_data.主线事件.当前状态', { defaults: '未触发' });
+var _事件ID   = getvar('stat_data.主线事件.事件ID', { defaults: '' });
+var _冷却     = getvar('stat_data.主线事件.冷却回合', { defaults: 0 });
+var _已完成   = getvar('stat_data.已完成事件', { defaults: [] });
+
+// ── 解析月份 ──
+var _月份 = -1;
+if (_日期 && typeof _日期 === 'string') {
+  var _parts = _日期.split('/');
+  if (_parts.length >= 2) {
+    _月份 = parseInt(_parts[1], 10);
+    if (isNaN(_月份)) _月份 = -1;
+  }
+}
+
+// ── 事件链定义（链式，按顺序触发）──
+// 完成事件N才能触发事件N+1
+// entry: 对应 index.yaml 中的条目名称，用于 getwi() 加载
+var _事件链 = [
+  { id: '事件1_二人的樱花', entry: '主线·二人的樱花', 好感度: 55, 起月: 3, 止月: 4 },
+  { id: '事件2_常乐谷之约', entry: '主线·常乐谷之约', 好感度: 60, 起月: 5, 止月: 5 },
+  { id: '事件3_蔚蓝的归属', entry: '主线·蔚蓝的归属', 好感度: 65, 起月: 7, 止月: 8 },
+  // 后续链式事件在此追加
+];
+
+// ── 独立事件定义（不受顺序和日期限制）──
+// 仅判断好感度，且该事件未曾完成过
+var _独立事件 = [
+  { id: '事件5_情敌出现', entry: '主线·情敌出现', 好感度: 50 },
+  { id: '事件4_说不出口的那句话', entry: '主线·说不出口的那句话', 好感度: 80 },
+  // 后续独立事件在此追加
+];
+
+// ── 月份匹配（支持跨年，如 [11, 2] → 11,12,1,2）──
+function _月份匹配(month, start, end) {
+  if (start <= end) return month >= start && month <= end;
+  return month >= start || month <= end;
+}
+
+// ── 查找事件（在事件链和独立事件中统一查找）──
+function _查找事件(eventId) {
+  var found = _事件链.find(function(e) { return e.id === eventId; });
+  if (!found) found = _独立事件.find(function(e) { return e.id === eventId; });
+  return found;
+}
+
+// ── 检查事件是否已完成 ──
+function _已完成过(eventId) {
+  if (!Array.isArray(_已完成)) return false;
+  return _已完成.some(function(e) { return e.事件ID === eventId; });
+}
+
+// ── 计算下一个链式事件序号 ──
+// 统计已完成事件中属于事件链的数量
+var _链式已完成数 = 0;
+if (Array.isArray(_已完成)) {
+  _事件链.forEach(function(chainEvent) {
+    if (_已完成.some(function(done) { return done.事件ID === chainEvent.id; })) {
+      _链式已完成数++;
+    }
+  });
+}
+_%>
+<%_ if (_事件状态 === '进行中' && _事件ID) { _%>
+<%_
+  // 事件进行中：在所有事件（链式+独立）中查找并加载
+  var _当前 = _查找事件(_事件ID);
+  if (_当前) {
+_%>
+<%- await getwi(_当前.entry) %>
+<%_
+  } else if (_事件ID.indexOf('自由事件_') === 0) {
+_%>
+<%- await getwi('主线·自由事件引导') %>
+<%_
+  }
+_%>
+<%_ } else if (_事件状态 === '未触发' && _冷却 <= 0) { _%>
+<%_
+  // 尝试触发新事件
+  var _已触发 = false;
+
+  // 1. 先检查链式事件（按顺序）
+  if (!_已触发 && _链式已完成数 < _事件链.length) {
+    var _候选 = _事件链[_链式已完成数];
+    if (_好感度 >= _候选.好感度 && _月份 > 0 && _月份匹配(_月份, _候选.起月, _候选.止月)) {
+      setvar('stat_data.主线事件.事件ID', _候选.id);
+      setvar('stat_data.主线事件.当前状态', '进行中');
+_%>
+<%- await getwi(_候选.entry) %>
+<%_
+      _已触发 = true;
+    }
+  }
+
+  // 2. 再检查独立事件（仅判断好感度，且未完成过）
+  if (!_已触发) {
+    for (var _i = 0; _i < _独立事件.length; _i++) {
+      var _独立 = _独立事件[_i];
+      if (_好感度 >= _独立.好感度 && !_已完成过(_独立.id)) {
+        setvar('stat_data.主线事件.事件ID', _独立.id);
+        setvar('stat_data.主线事件.当前状态', '进行中');
+_%>
+<%- await getwi(_独立.entry) %>
+<%_
+        _已触发 = true;
+        break;
+      }
+    }
+  }
+
+  // 3. 所有预定义事件完成 → 触发自由事件
+  if (!_已触发) {
+    var _全部链式完成 = _链式已完成数 >= _事件链.length;
+    var _全部独立完成 = _独立事件.every(function(e) { return _已完成过(e.id); });
+    if (_全部链式完成 && _全部独立完成) {
+      var _自由事件数 = 0;
+      if (Array.isArray(_已完成)) {
+        _已完成.forEach(function(e) {
+          if (e.事件ID && e.事件ID.indexOf('自由事件_') === 0) _自由事件数++;
+        });
+      }
+      setvar('stat_data.主线事件.事件ID', '自由事件_' + (_自由事件数 + 1));
+      setvar('stat_data.主线事件.当前状态', '进行中');
+_%>
+<%- await getwi('主线·自由事件引导') %>
+<%_
+      _已触发 = true;
+    }
+  }
+_%>
+<%_ } _%>

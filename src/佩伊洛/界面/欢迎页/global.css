@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --c-sky: #e8f4fd;
+  --c-blush: #ffe4ec;
+  --c-cloud: #ffffff;
+  --c-frost: rgba(255, 255, 255, 0.72);
+  --c-text: #4a5568;
+  --c-text-sub: #a0aec0;
+  --c-accent: #90cdf4;
+  --c-sakura: #f6a8c3;
+  --c-sakura-light: #fad2dc;
+  --c-sakura-dark: #e27ea0;
+  --c-accent-dark: #4a91c4;
+  --c-border: #dce5ee;
+  --font-main: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+}
