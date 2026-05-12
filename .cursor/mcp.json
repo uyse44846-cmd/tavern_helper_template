@@ -1,1 +1,15 @@
+<<<<<<< HEAD
 {"mcpServers":{"browsermcp":{"command":"pnpx","args":["@browsermcp/mcp"],"alwaysAllow":["browser_snapshot","browser_click"]}}}
+=======
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "pnpx",
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ]
+    }
+  }
+}
+>>>>>>> 97a7b3d33c9c4352561a5d0902fe896ec003d90a
