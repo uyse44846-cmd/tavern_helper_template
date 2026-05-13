@@ -16,7 +16,7 @@
         - 若场景未发生时间跳跃则保持不变
     时间阶段:
       type: string
-      enum: [ 清晨, 上午, 正午, 午后, 傍晚, 夜晚, 深夜, 凌晨 ]
+      enum: [清晨, 上午, 正午, 午后, 傍晚, 夜晚, 深夜, 凌晨]
       check:
         - 与当前时间保持一致
         - 场景切换或明显时间流逝时更新
@@ -38,12 +38,11 @@
         - 场景结束后恢复为 false
         - 仅在明确的 NSFW 场景中为 true
     下一回合界面选择:
-      type: enum
-      enum: [ 立绘, galgame ]
+      type: "'sprite' | 'galgame'"
       check:
-        - 默认为"立绘"
-        - 仅在特定剧情演出场景中切换为"galgame"
-        - 不要频繁切换
+        - default to 'sprite' if no special situation
+        - reset to 'sprite' when the current value is not 'sprite'
+        - set to 'galgame' when the storyline reaches an emotional peak, climax CG scene, confession, farewell, reconciliation, or NSFW scene
 
   佩伊洛:
     好感度:
@@ -56,24 +55,6 @@
         - 深度共鸣或重要事件 +3~5
         - 冒犯、忽视、伤害 -2~5
         - 不允许单次变动超过 5
-    当前服装:
-      type: enum
-      enum: [ 校服, 便服, 睡衣, 连衣裙 ]
-      check:
-        - 根据当前场景和时间合理选择服装
-        - 校服：在学校期间（上课、社团活动等）
-        - 便服：外出逛街、约会、日常活动
-        - 睡衣：在家中休息、夜间
-        - 连衣裙：特殊场合、约会等
-        - 服装切换需要合理的场景理由，不能每回合都换
-    当前表情:
-      type: enum
-      enum: [ 微笑, 害羞, 惊讶, 生气, 哭泣, 坏笑, 微微脸红, 拥抱, 擦眼泪, 星星眼, 晕晕眼, 流口水 ]
-      check:
-        - 根据当前对话情绪和场景选择最匹配的表情
-        - 日常默认为"微笑"
-        - 表情应与回复内容的情感一致
-        - 拥抱仅在角色主动拥抱时使用
 
   主线事件:
     事件ID:
@@ -81,14 +62,14 @@
         - 由脚本自动设置，AI不要修改此值
     当前状态:
       type: string
-      enum: [ 未触发, 进行中, 已完成 ]
+      enum: [未触发, 进行中, 已完成]
       check:
         - 未触发→进行中：由脚本在条件满足时自动触发
         - 进行中→已完成：当前阶段走完结局后标记为已完成
         - 不允许直接从未触发跳到已完成
     当前阶段:
       type: enum
-      enum: [ 引入, 发展, 高潮, 结局 ]
+      enum: [引入, 发展, 高潮, 结局]
       check:
         - 仅在当前状态为"进行中"时推进
         - 必须按顺序推进，不允许跳跃

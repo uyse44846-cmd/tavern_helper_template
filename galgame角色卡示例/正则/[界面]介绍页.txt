@@ -1,0 +1,7 @@
+```
+<body>
+<script>
+$('body').load('https://testingcf.jsdelivr.net/gh/lolo-desu/lolocard/dist/日记络络/界面/介绍页/index.html')
+</script>
+</body>
+```

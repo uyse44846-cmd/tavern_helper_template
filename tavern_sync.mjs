@@ -65769,6 +65769,10 @@ const Script = strictObject({
     })
         .prefault({}),
     data: record(schemas_string(), any()).prefault({}),
+    export_with: object({
+        data: schemas_boolean().prefault(false),
+        button: schemas_boolean().prefault(false),
+    }).optional(),
 })
     .superRefine((data, context) => {
     if (data.content === undefined && data.file === undefined) {
@@ -66466,6 +66470,10 @@ const extensions_zh_Script = strictObject({
     })
         .prefault({}),
     数据: record(schemas_string(), any()).prefault({}),
+    export_with: object({
+        数据: schemas_boolean().prefault(false),
+        按钮: schemas_boolean().prefault(false),
+    }).optional(),
 })
     .superRefine((data, context) => {
     if (data.内容 === undefined && data.文件 === undefined) {

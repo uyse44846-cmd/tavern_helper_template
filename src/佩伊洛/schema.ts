@@ -6,15 +6,11 @@ export const Schema = z.object({
     当前天气: z.string(),
     当前地点: z.string(),
     是否NSFW: z.boolean().prefault(false),
-    下一回合界面选择: z.enum(['立绘', 'galgame']).prefault('立绘'),
+    下一回合界面选择: z.enum(['sprite', 'galgame']).prefault('sprite'),
   }),
 
   佩伊洛: z.object({
     好感度: z.coerce.number().transform(v => _.clamp(v, 0, 100)),
-    当前服装: z.enum(['校服', '便服', '睡衣', '连衣裙']).prefault('校服'),
-    当前表情: z
-      .enum(['微笑', '害羞', '惊讶', '生气', '哭泣', '坏笑', '微微脸红', '拥抱', '擦眼泪', '星星眼', '晕晕眼', '流口水'])
-      .prefault('微笑'),
   }),
 
   主线事件: z

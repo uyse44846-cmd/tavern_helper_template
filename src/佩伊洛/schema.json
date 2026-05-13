@@ -24,10 +24,10 @@
           "type": "boolean"
         },
         "下一回合界面选择": {
-          "default": "立绘",
+          "default": "sprite",
           "type": "string",
           "enum": [
-            "立绘",
+            "sprite",
             "galgame"
           ]
         }
@@ -45,34 +45,6 @@
       "properties": {
         "好感度": {
           "type": "number"
-        },
-        "当前服装": {
-          "default": "校服",
-          "type": "string",
-          "enum": [
-            "校服",
-            "便服",
-            "睡衣",
-            "连衣裙"
-          ]
-        },
-        "当前表情": {
-          "default": "微笑",
-          "type": "string",
-          "enum": [
-            "微笑",
-            "害羞",
-            "惊讶",
-            "生气",
-            "哭泣",
-            "坏笑",
-            "微微脸红",
-            "拥抱",
-            "擦眼泪",
-            "星星眼",
-            "晕晕眼",
-            "流口水"
-          ]
         }
       },
       "required": [

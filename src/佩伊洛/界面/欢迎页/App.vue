@@ -3,55 +3,36 @@
     <div class="welcome-card">
       <div class="accent-bar" />
 
-      <div class="petal-field" aria-hidden="true">
-        <span v-for="i in 6" :key="i" class="petal" :class="`petal--${i}`" />
-      </div>
-
       <div class="card-inner">
-        <h1 ref="titleRef" class="title">澜景市 · 三月的相遇</h1>
+        <h1 class="title fade-in">澜景市 · 三月的相遇</h1>
+        <p class="subtitle fade-in d1">现代都市 · 樱花季 · 日系校园</p>
 
-        <p ref="subtitleRef" class="subtitle">现代都市 · 樱花季 · 日系校园</p>
+        <div class="divider fade-in d2">
+          <span class="dot" />
+        </div>
 
-        <svg ref="dividerRef" class="divider" viewBox="0 0 200 12" fill="none">
-          <path
-            d="M0 6 Q40 0 60 6 T100 6 T140 6 T200 6"
-            stroke="var(--c-sakura-light)"
-            stroke-width="1.2"
-            stroke-linecap="round"
-          />
-          <circle cx="100" cy="6" r="2.5" fill="var(--c-sakura)" />
-        </svg>
-
-        <div ref="introRef" class="intro-block">
+        <div class="intro-block fade-in d3">
           <p>
             三月的澜景市，樱花沿着清江两岸次第绽放，映湖区的住宅街安静得只听见远处电车的鸣笛。晨光洒落在石阶上，空气里混着淡淡的花香与面包房的黄油味——又一个平凡而温柔的早晨。
           </p>
         </div>
 
-        <div ref="charRef" class="char-block">
-          <div class="char-icon">
-            <i class="fa-solid fa-heart" />
-          </div>
+        <div class="char-block fade-in d4">
           <p>
             住在对门的白发少女，红色的眼瞳里总映着一点倦意与温柔。她会在每个清晨按响你家的门铃，递上还带着温度的面包，然后假装若无其事地说「只是刚好多出来了」。
           </p>
-          <p class="char-block__closing">
-            十六岁的春天，有些话还说不出口——但她的指尖，从来不会说谎。
-          </p>
         </div>
 
-        <div ref="tagsRef" class="tag-row">
-          <span class="tag tag--sakura">青梅竹马</span>
-          <span class="tag tag--accent">galgame 体验</span>
-          <span class="tag tag--sakura">主线事件系统</span>
-          <span class="tag tag--accent">Vue 立绘界面</span>
-          <span class="tag tag--sakura">MVU 变量追踪</span>
+        <div class="tag-row fade-in d5">
+          <span class="tag">青梅竹马</span>
+          <span class="tag">galgame 体验</span>
+          <span class="tag">主线事件系统</span>
+          <span class="tag">MVU 变量追踪</span>
         </div>
 
-        <div ref="btnRef" class="btn-row">
+        <div class="btn-row fade-in d6">
           <button class="btn-start" :disabled="starting" @click="handleStart">
-            <i class="fa-solid" :class="starting ? 'fa-spinner fa-spin' : 'fa-play'" />
-            <span>{{ starting ? '加载中…' : '开始' }}</span>
+            {{ starting ? '加载中…' : '▶ 开始' }}
           </button>
         </div>
       </div>
@@ -60,39 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import gsap from 'gsap';
-
-const titleRef = ref<HTMLElement>();
-const subtitleRef = ref<HTMLElement>();
-const dividerRef = ref<SVGElement>();
-const introRef = ref<HTMLElement>();
-const charRef = ref<HTMLElement>();
-const tagsRef = ref<HTMLElement>();
-const btnRef = ref<HTMLElement>();
 const starting = ref(false);
-
-onMounted(() => {
-  const targets = [
-    titleRef.value,
-    subtitleRef.value,
-    dividerRef.value,
-    introRef.value,
-    charRef.value,
-    tagsRef.value,
-    btnRef.value,
-  ].filter(Boolean);
-
-  gsap.set(targets, { opacity: 0, y: 14 });
-
-  gsap.to(targets, {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'power2.out',
-    stagger: 0.12,
-    delay: 0.15,
-  });
-});
 
 async function handleStart() {
   if (starting.value) return;
@@ -105,221 +54,148 @@ async function handleStart() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .welcome-page {
   max-width: 640px;
   margin: 0 auto;
-  padding: clamp(8px, 2vw, 16px);
-  font-family: var(--font-main);
-  color: var(--c-text);
+  padding: 16px;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: #2c3e50;
   line-height: 1.7;
 }
 
 .welcome-card {
   position: relative;
-  background: var(--c-cloud);
-  border: 1px solid var(--c-border);
-  border-radius: 18px;
-  box-shadow:
-    0 6px 28px rgba(44, 62, 80, 0.07),
-    0 1.5px 6px rgba(107, 178, 224, 0.08);
+  background: #fefefe;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 
 .accent-bar {
   height: 3px;
-  background: linear-gradient(90deg, var(--c-sakura), var(--c-accent), var(--c-sakura));
-  opacity: 0.75;
+  background: linear-gradient(90deg, #ffb6c1, #87ceeb);
 }
 
-// --- floating petals ---
-.petal-field {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.petal {
-  position: absolute;
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50% 0 50% 50%;
-  background: var(--c-sakura-light);
-  opacity: 0;
-  animation: petal-drift 9s ease-in-out infinite;
-
-  &--1 { top: -6%; left: 12%; animation-delay: 0s; }
-  &--2 { top: -6%; left: 38%; animation-delay: 1.6s; width: 6px; height: 6px; }
-  &--3 { top: -6%; left: 62%; animation-delay: 3.2s; }
-  &--4 { top: -6%; left: 82%; animation-delay: 4.8s; width: 7px; height: 7px; }
-  &--5 { top: -6%; left: 25%; animation-delay: 6.0s; width: 5px; height: 5px; }
-  &--6 { top: -6%; left: 55%; animation-delay: 7.5s; width: 6px; height: 6px; }
-}
-
-@keyframes petal-drift {
-  0% {
-    opacity: 0;
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
-  10% { opacity: 0.55; }
-  90% { opacity: 0.35; }
-  100% {
-    opacity: 0;
-    transform: translateY(420px) translateX(30px) rotate(180deg);
-  }
-}
-
-// --- content ---
 .card-inner {
-  position: relative;
-  padding: clamp(20px, 5vw, 36px) clamp(16px, 4vw, 32px);
+  padding: 32px 24px;
+  text-align: center;
 }
 
 .title {
-  font-size: clamp(20px, 5vw, 28px);
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 2px;
-  color: var(--c-text);
+  font-size: 22px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8px;
 }
 
 .subtitle {
-  font-size: clamp(12px, 2.8vw, 15px);
-  color: var(--c-sakura-dark);
-  text-align: center;
-  letter-spacing: 3px;
-  margin-top: clamp(4px, 1vw, 8px);
+  font-size: 13px;
+  color: #999;
+  letter-spacing: 2px;
 }
 
 .divider {
-  display: block;
-  width: clamp(140px, 50%, 240px);
-  margin: clamp(12px, 3vw, 20px) auto;
-}
-
-.intro-block {
-  background: linear-gradient(135deg, rgba(246, 168, 195, 0.06), rgba(107, 178, 224, 0.05));
-  border-left: 3px solid var(--c-sakura);
-  border-radius: 0 10px 10px 0;
-  padding: clamp(12px, 3vw, 18px) clamp(14px, 3.5vw, 22px);
-  font-size: clamp(12px, 2.6vw, 14px);
-  color: var(--c-text-sub);
-  line-height: 1.9;
-}
-
-.char-block {
-  margin-top: clamp(14px, 3.5vw, 22px);
-  padding: clamp(14px, 3.5vw, 20px);
-  background: linear-gradient(135deg, rgba(107, 178, 224, 0.05), rgba(246, 168, 195, 0.04));
-  border-radius: 12px;
-  border: 1px solid rgba(144, 205, 244, 0.2);
-  font-size: clamp(12px, 2.6vw, 14px);
-  color: var(--c-text-sub);
-  line-height: 1.9;
-
-  &__closing {
-    margin-top: clamp(6px, 1.5vw, 10px);
-    color: var(--c-sakura-dark);
-    font-style: italic;
-  }
-}
-
-.char-icon {
-  display: inline-flex;
+  margin: 20px auto;
+  width: 120px;
+  height: 1px;
+  background: #eee;
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--c-sakura-light), var(--c-blush));
-  margin-bottom: clamp(6px, 1.5vw, 10px);
-  font-size: 12px;
-  color: var(--c-sakura-dark);
+  background: #ffb6c1;
+}
+
+.intro-block,
+.char-block {
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+  margin: 16px 0;
 }
 
 .tag-row {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(6px, 1.5vw, 8px);
+  gap: 8px;
   justify-content: center;
-  margin-top: clamp(16px, 4vw, 24px);
+  margin: 20px 0;
 }
 
 .tag {
-  display: inline-block;
-  padding: 3px clamp(10px, 2.5vw, 14px);
-  font-size: clamp(10px, 2.2vw, 12px);
+  font-size: 12px;
+  padding: 4px 12px;
   border-radius: 12px;
-  letter-spacing: 0.5px;
-  user-select: none;
-
-  &--sakura {
-    background: rgba(246, 168, 195, 0.12);
-    color: var(--c-sakura-dark);
-    border: 1px solid rgba(246, 168, 195, 0.3);
-  }
-
-  &--accent {
-    background: rgba(107, 178, 224, 0.1);
-    color: var(--c-accent-dark);
-    border: 1px solid rgba(107, 178, 224, 0.25);
-  }
+  background: #f8f0f4;
+  color: #c06;
+  border: 1px solid #f0d0e0;
 }
 
 .btn-row {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(20px, 5vw, 32px);
+  margin-top: 24px;
 }
 
 .btn-start {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: clamp(10px, 2.5vw, 13px) clamp(28px, 7vw, 40px);
-  font-size: clamp(13px, 3vw, 16px);
-  font-family: var(--font-main);
-  font-weight: 500;
-  color: #fff;
-  background: linear-gradient(135deg, var(--c-sakura), var(--c-accent));
+  padding: 10px 32px;
+  font-size: 15px;
   border: none;
   border-radius: 24px;
+  background: linear-gradient(135deg, #ffb6c1, #ff8fa3);
+  color: #fff;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(107, 178, 224, 0.3);
-  transition: box-shadow 0.25s, transform 0.2s, opacity 0.2s;
-  min-height: 44px;
-  touch-action: manipulation;
-  user-select: none;
-
-  &:hover:not(:disabled) {
-    box-shadow: 0 6px 22px rgba(107, 178, 224, 0.45);
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 3px 12px rgba(107, 178, 224, 0.25);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-
-  i {
-    font-size: 0.85em;
-  }
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
-@media (max-width: 420px) {
-  .tag-row {
-    gap: 5px;
-  }
+.btn-start:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 143, 163, 0.4);
+}
 
-  .tag {
-    padding: 2px 8px;
+.btn-start:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Fade-in animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.d1 {
+  animation-delay: 0.1s;
+}
+.d2 {
+  animation-delay: 0.2s;
+}
+.d3 {
+  animation-delay: 0.3s;
+}
+.d4 {
+  animation-delay: 0.4s;
+}
+.d5 {
+  animation-delay: 0.5s;
+}
+.d6 {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
