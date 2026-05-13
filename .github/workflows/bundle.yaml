@@ -21,9 +21,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: JesseTG/rm@v1.0.3
-        with:
-          path: dist
+      - name: Clean dist but preserve static assets
+        run: |
+          mkdir -p /tmp/preserved_assets
+          for dir in dist/*/; do
+            base=$(basename "$dir")
+            [ -d "$dir/背景" ] && mkdir -p "/tmp/preserved_assets/$base" && cp -r "$dir/背景" "/tmp/preserved_assets/$base/背景"
+            [ -d "$dir/角色立绘" ] && mkdir -p "/tmp/preserved_assets/$base" && cp -r "$dir/角色立绘" "/tmp/preserved_assets/$base/角色立绘"
+          done
+          rm -rf dist
 
       - name: Use Node.js
         uses: actions/setup-node@v6
@@ -35,6 +41,15 @@ jobs:
           version: 10
 
       - run: pnpm install && pnpm build
+      - name: Restore static assets to dist
+        run: |
+          if [ -d "/tmp/preserved_assets" ]; then
+            for dir in /tmp/preserved_assets/*/; do
+              base=$(basename "$dir")
+              [ -d "$dir/背景" ] && cp -r "$dir/背景" "dist/$base/背景" 2>/dev/null || true
+              [ -d "$dir/角色立绘" ] && cp -r "$dir/角色立绘" "dist/$base/角色立绘" 2>/dev/null || true
+            done
+          fi
       - name: Only keep 角色卡示例 in dist for template upstream
         if: github.repository == 'StageDog/tavern_helper_template'
         run: |
