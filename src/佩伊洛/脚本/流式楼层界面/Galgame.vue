@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import YAML from 'yaml';
 
-const CDN = 'https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template/dist/佩伊洛';
+const CDN = 'https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛';
 
 interface Chat {
   speaker: string;
