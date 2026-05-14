@@ -1,7 +1,9 @@
 ---
 下一回合界面选择系统:
   判断可能情况:
+    <%_ if (!getvar('始终使用galgame界面')) { _%>
     sprite: 常规剧情推进，生成正文剧情并在尾部附加sprite界面
+    <%_ } _%>
     galgame: 进入感人或剧情高潮CG场景（如告白、离别、和解、NSFW等情感爆发点），使用galgame对话序列界面
   你必须输出判断{{format_message_variable::stat_data.世界.下一回合界面选择}}对应的界面，因此必须最优先地遵守以下内容:
     <%_ if (getvar('stat_data.世界.下一回合界面选择') === 'sprite') { _%>
@@ -30,7 +32,9 @@
           }
       rule:
         - 本次响应专注于CG场景，**仅输出galgame界面和roleplay_options选择框，绝对禁止生成任何正文**
+        <%_ if (!getvar('始终使用galgame界面')) { _%>
         - 输出CG场景后，你必须在本次<UpdateVariable>中更新`世界.下一回合界面选择`为'sprite'
+        <%_ } _%>
       format: |-
         <interface_analysis>
         - 当前时间: ...
@@ -43,10 +47,12 @@
         ${按YAML格式输出Chat[]（不少于10个Chat，不多于25个Chat），营造一个符合场景风格的、具有充足情感爆发的CG场景，留给玩家深刻印象，要注重于单个场景的深刻描写，禁止过于频繁地切换背景}
         ```
         </galgame>
+        <%_ if (!getvar('始终使用galgame界面')) { _%>
         <UpdateVariable>
         ${将`世界.下一回合界面选择`更新为'sprite'}
         ...
         </UpdateVariable>
+        <%_ } _%>
       example: |-
         <galgame>
         ```yaml

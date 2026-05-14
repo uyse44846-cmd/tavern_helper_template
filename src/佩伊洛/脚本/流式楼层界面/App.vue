@@ -2,12 +2,12 @@
   <div v-if="hasGalgame && !context.during_streaming">
     <Galgame :message="context.message" />
   </div>
-  <div v-else-if="hasGalgame && context.during_streaming" v-html="streamingHtml" class="mes_streaming"></div>
+  <div v-else-if="hasGalgame && context.during_streaming" class="mes_streaming" v-html="streamingHtml"></div>
   <template v-else>
-    <div v-if="beforeHtml" v-html="beforeHtml" class="mes_streaming"></div>
+    <div v-if="beforeHtml" class="mes_streaming" v-html="beforeHtml"></div>
     <RoleplayOptions v-if="hasClosedOptions" :message="context.message" />
-    <div v-else-if="hasOptions" v-html="optionsStreamingHtml" class="mes_streaming"></div>
-    <div v-if="afterHtml" v-html="afterHtml" class="mes_streaming"></div>
+    <div v-else-if="hasOptions" class="mes_streaming" v-html="optionsStreamingHtml"></div>
+    <div v-if="afterHtml" class="mes_streaming" v-html="afterHtml"></div>
   </template>
 </template>
 
@@ -40,10 +40,15 @@ const afterHtml = computed(() => {
 });
 
 const streamingHtml = computed(() => {
-  return formatAsDisplayedMessage(context.message, { message_id: context.message_id }).replaceAll('mes_text', 'mes_streaming');
+  return formatAsDisplayedMessage(context.message, { message_id: context.message_id }).replaceAll(
+    'mes_text',
+    'mes_streaming',
+  );
 });
 
 const optionsStreamingHtml = computed(() => {
-  return formatAsDisplayedMessage(context.message.slice(beforeIndex.value), { message_id: context.message_id }).replaceAll('mes_text', 'mes_streaming');
+  return formatAsDisplayedMessage(context.message.slice(beforeIndex.value), {
+    message_id: context.message_id,
+  }).replaceAll('mes_text', 'mes_streaming');
 });
 </script>

@@ -1,0 +1,3 @@
+<roleplay_options>
+$2
+</roleplay_options>
