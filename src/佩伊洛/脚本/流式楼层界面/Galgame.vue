@@ -35,7 +35,7 @@ interface Option {
   content: string;
 }
 
-const props = defineProps<{ message: string }>();
+const props = defineProps<{ message: string; directSend?: boolean }>();
 
 const circleNums = ['①', '②', '③', '④', '⑤'];
 
@@ -77,8 +77,12 @@ function advance() {
 }
 
 async function handleChoiceClick(item: Option) {
-  await createChatMessages([{ role: 'user', message: item.content }]);
-  triggerSlash('/trigger');
+  if (props.directSend !== false) {
+    await createChatMessages([{ role: 'user', message: item.content }]);
+    triggerSlash('/trigger');
+  } else {
+    triggerSlash(`/setinput ${item.content}`);
+  }
 }
 </script>
 

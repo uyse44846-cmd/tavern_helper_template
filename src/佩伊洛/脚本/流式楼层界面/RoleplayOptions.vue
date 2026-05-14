@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ message: string }>();
+const props = defineProps<{ message: string; directSend?: boolean }>();
 
 interface Option {
   title: string;
@@ -45,8 +45,12 @@ function isLastOdd(index: number): boolean {
 }
 
 async function handleClick(item: Option) {
-  await createChatMessages([{ role: 'user', message: item.content }]);
-  triggerSlash('/trigger');
+  if (props.directSend !== false) {
+    await createChatMessages([{ role: 'user', message: item.content }]);
+    triggerSlash('/trigger');
+  } else {
+    triggerSlash(`/setinput ${item.content}`);
+  }
 }
 </script>
 
