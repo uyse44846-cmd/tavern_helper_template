@@ -1,4 +1,3 @@
-@@private
 <%_
 /* ═══════ 主线事件控制器 ═══════
  * 读取 MVU 变量，根据好感度、游戏日期、事件状态等条件
@@ -10,15 +9,15 @@
  */
 
 // ── 读取变量 ──
-var _好感度 = getvar('stat_data.佩伊洛.好感度', { defaults: 0 });
-var _日期   = getvar('stat_data.世界.当前日期', { defaults: '' });
-var _事件状态 = getvar('stat_data.主线事件.当前状态', { defaults: '未触发' });
-var _事件ID   = getvar('stat_data.主线事件.事件ID', { defaults: '' });
-var _冷却     = getvar('stat_data.主线事件.冷却回合', { defaults: 0 });
-var _已完成   = getvar('stat_data.已完成事件', { defaults: [] });
+if (typeof _好感度 === 'undefined') var _好感度 = getvar('stat_data.佩伊洛.好感度', { defaults: 0 });
+if (typeof _日期 === 'undefined') var _日期   = getvar('stat_data.世界.当前日期', { defaults: '' });
+if (typeof _事件状态 === 'undefined') var _事件状态 = getvar('stat_data.主线事件.当前状态', { defaults: '未触发' });
+if (typeof _事件ID === 'undefined') var _事件ID   = getvar('stat_data.主线事件.事件ID', { defaults: '' });
+if (typeof _冷却 === 'undefined') var _冷却     = getvar('stat_data.主线事件.冷却回合', { defaults: 0 });
+if (typeof _已完成 === 'undefined') var _已完成   = getvar('stat_data.已完成事件', { defaults: [] });
 
 // ── 解析月份 ──
-var _月份 = -1;
+if (typeof _月份 === 'undefined') var _月份 = -1;
 if (_日期 && typeof _日期 === 'string') {
   var _parts = _日期.split('/');
   if (_parts.length >= 2) {
@@ -30,7 +29,7 @@ if (_日期 && typeof _日期 === 'string') {
 // ── 事件链定义（链式，按顺序触发）──
 // 完成事件N才能触发事件N+1
 // entry: 对应 index.yaml 中的条目名称，用于 getwi() 加载
-var _事件链 = [
+if (typeof _事件链 === 'undefined') var _事件链 = [
   { id: '事件1_二人的樱花', entry: '主线·二人的樱花', 好感度: 55, 起月: 3, 止月: 4 },
   { id: '事件2_常乐谷之约', entry: '主线·常乐谷之约', 好感度: 60, 起月: 5, 止月: 5 },
   { id: '事件3_蔚蓝的归属', entry: '主线·蔚蓝的归属', 好感度: 65, 起月: 7, 止月: 8 },
@@ -39,34 +38,34 @@ var _事件链 = [
 
 // ── 独立事件定义（不受顺序和日期限制）──
 // 仅判断好感度，且该事件未曾完成过
-var _独立事件 = [
+if (typeof _独立事件 === 'undefined') var _独立事件 = [
   { id: '事件5_情敌出现', entry: '主线·情敌出现', 好感度: 50 },
   { id: '事件4_说不出口的那句话', entry: '主线·说不出口的那句话', 好感度: 80 },
   // 后续独立事件在此追加
 ];
 
 // ── 月份匹配（支持跨年，如 [11, 2] → 11,12,1,2）──
-function _月份匹配(month, start, end) {
+if (typeof _月份匹配 === 'undefined') var _月份匹配 = function(month, start, end) {
   if (start <= end) return month >= start && month <= end;
   return month >= start || month <= end;
-}
+};
 
 // ── 查找事件（在事件链和独立事件中统一查找）──
-function _查找事件(eventId) {
+if (typeof _查找事件 === 'undefined') var _查找事件 = function(eventId) {
   var found = _事件链.find(function(e) { return e.id === eventId; });
   if (!found) found = _独立事件.find(function(e) { return e.id === eventId; });
   return found;
-}
+};
 
 // ── 检查事件是否已完成 ──
-function _已完成过(eventId) {
+if (typeof _已完成过 === 'undefined') var _已完成过 = function(eventId) {
   if (!Array.isArray(_已完成)) return false;
   return _已完成.some(function(e) { return e.事件ID === eventId; });
-}
+};
 
 // ── 计算下一个链式事件序号 ──
 // 统计已完成事件中属于事件链的数量
-var _链式已完成数 = 0;
+if (typeof _链式已完成数 === 'undefined') var _链式已完成数 = 0;
 if (Array.isArray(_已完成)) {
   _事件链.forEach(function(chainEvent) {
     if (_已完成.some(function(done) { return done.事件ID === chainEvent.id; })) {

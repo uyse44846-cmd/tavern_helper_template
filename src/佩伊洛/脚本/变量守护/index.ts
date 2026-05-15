@@ -1,7 +1,26 @@
 $(async () => {
   await waitGlobalInitialized('Mvu');
 
-  eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+  // 读取"始终使用galgame界面"开关状态的辅助函数
+  async function isAlwaysGalgameEnabled(): Promise<boolean> {
+    try {
+      const worldbookName = getCharWorldbookNames('current').primary;
+      if (!worldbookName) return false;
+      const entries = await getWorldbook(worldbookName);
+      const entry = entries.find(e => e.name.includes('始终使用galgame界面'));
+      return entry?.enabled ?? false;
+    } catch {
+      return false;
+    }
+  }
+
+  eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, async (new_variables, old_variables) => {
+    // 始终使用galgame界面：强制覆盖下一回合界面选择
+    const alwaysGalgame = await isAlwaysGalgameEnabled();
+    if (alwaysGalgame) {
+      _.set(new_variables, 'stat_data.世界.下一回合界面选择', 'galgame');
+    }
+
     const old_status = _.get(old_variables, 'stat_data.主线事件.当前状态', '未触发');
     const new_status = _.get(new_variables, 'stat_data.主线事件.当前状态', '未触发');
 
