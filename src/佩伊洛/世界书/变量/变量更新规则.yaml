@@ -38,11 +38,16 @@
         - 场景结束后恢复为 false
         - 仅在明确的 NSFW 场景中为 true
     下一回合界面选择:
-      type: "'sprite' | 'galgame'"
+      type: |-
+        <%= getvar('始终使用galgame界面') ? "'galgame'" : "'sprite' | 'galgame'" %>
       check:
+        <%_ if (getvar('始终使用galgame界面')) { _%>
+        - 禁止更改
+        <%_ } else { _%>
         - default to 'sprite' if no special situation
         - reset to 'sprite' when the current value is not 'sprite'
         - set to 'galgame' when the storyline reaches an emotional peak, climax CG scene, confession, farewell, reconciliation, or NSFW scene
+        <%_ } _%>
 
   佩伊洛:
     好感度:
