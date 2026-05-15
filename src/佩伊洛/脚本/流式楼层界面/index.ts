@@ -19,6 +19,14 @@ $(() => {
     if ($mes.find(`#${containerId}`).length > 0) return;
 
     const $mes_text = $mes.find('.mes_text');
+
+    // 隐藏正则生成的代码块（包含 <roleplay_options> 文本的 <pre><code> 元素）
+    $mes_text.find('pre code').each((_i, el) => {
+      if (el.textContent?.includes('<roleplay_options>')) {
+        $(el).closest('pre').addClass('hidden');
+      }
+    });
+
     const $container = $('<div>').attr('id', containerId).insertAfter($mes_text);
 
     const worldbookName = getCharWorldbookNames('current').primary;
