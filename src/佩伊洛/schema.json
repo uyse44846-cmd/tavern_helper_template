@@ -21,7 +21,6 @@
           "type": "string"
         },
         "是否NSFW": {
-          "default": false,
           "type": "boolean"
         },
         "下一回合界面选择": {
@@ -57,7 +56,6 @@
       "type": "object",
       "properties": {
         "事件ID": {
-          "default": "",
           "type": "string"
         },
         "当前状态": {
@@ -80,15 +78,12 @@
           ]
         },
         "主题": {
-          "default": "",
           "type": "string"
         },
         "描述": {
-          "default": "",
           "type": "string"
         },
         "冷却回合": {
-          "default": 0,
           "type": "number"
         },
         "大纲": {
@@ -96,19 +91,15 @@
           "type": "object",
           "properties": {
             "引入": {
-              "default": "",
               "type": "string"
             },
             "发展": {
-              "default": "",
               "type": "string"
             },
             "高潮": {
-              "default": "",
               "type": "string"
             },
             "结局": {
-              "default": "",
               "type": "string"
             }
           }
