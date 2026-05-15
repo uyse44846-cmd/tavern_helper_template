@@ -1,23 +1,32 @@
 $(async () => {
   await waitGlobalInitialized('Mvu');
 
-  // 读取"始终使用galgame界面"开关状态的辅助函数
-  async function isAlwaysGalgameEnabled(): Promise<boolean> {
+  // 缓存"始终使用galgame界面"开关状态
+  let _alwaysGalgame = false;
+
+  async function refreshAlwaysGalgame() {
     try {
       const worldbookName = getCharWorldbookNames('current').primary;
-      if (!worldbookName) return false;
+      if (!worldbookName) return;
       const entries = await getWorldbook(worldbookName);
       const entry = entries.find(e => e.name.includes('始终使用galgame界面'));
-      return entry?.enabled ?? false;
+      _alwaysGalgame = entry?.enabled ?? false;
     } catch {
-      return false;
+      _alwaysGalgame = false;
     }
   }
 
-  eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, async (new_variables, old_variables) => {
-    // 始终使用galgame界面：强制覆盖下一回合界面选择
-    const alwaysGalgame = await isAlwaysGalgameEnabled();
-    if (alwaysGalgame) {
+  // 初始化时读取一次
+  await refreshAlwaysGalgame();
+
+  // 监听世界书更新事件，刷新缓存
+  eventOn('worldinfo_updated' as any, () => {
+    refreshAlwaysGalgame();
+  });
+
+  eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+    // 始终使用galgame界面：强制覆盖下一回合界面选择（同步操作，使用缓存值）
+    if (_alwaysGalgame) {
       _.set(new_variables, 'stat_data.世界.下一回合界面选择', 'galgame');
     }
 
@@ -60,5 +69,5 @@ $(async () => {
     }
   });
 
-  console.info('[变量守护] 已加载');
+  console.info(`[变量守护] 已加载 (始终galgame: ${_alwaysGalgame})`);
 });
