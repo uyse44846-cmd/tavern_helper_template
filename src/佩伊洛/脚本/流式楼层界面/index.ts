@@ -45,15 +45,22 @@ $(() => {
     return { app, observer, $container };
   };
 
-  const optionsStates = new Map<number, { app: ReturnType<typeof createApp>; observer: MutationObserver; $container: JQuery }>();
+  const optionsStates = new Map<
+    number,
+    { app: ReturnType<typeof createApp>; observer: MutationObserver; $container: JQuery }
+  >();
 
   const renderAllOptions = async () => {
-    $('#chat').children(".mes[is_user='false'][is_system='false']").each((_i, node) => {
-      const mid = Number($(node).attr('mesid'));
-      if (!isNaN(mid) && !optionsStates.has(mid)) {
-        renderOptions(mid).then(state => { if (state) optionsStates.set(mid, state); });
-      }
-    });
+    $('#chat')
+      .children(".mes[is_user='false'][is_system='false']")
+      .each((_i, node) => {
+        const mid = Number($(node).attr('mesid'));
+        if (!isNaN(mid) && !optionsStates.has(mid)) {
+          renderOptions(mid).then(state => {
+            if (state) optionsStates.set(mid, state);
+          });
+        }
+      });
   };
 
   const destroyOptions = (mid: number) => {
@@ -67,21 +74,41 @@ $(() => {
   };
 
   const stops: Array<() => void> = [];
-  stops.push(eventOn(tavern_events.CHARACTER_MESSAGE_RENDERED, (mid: number) => {
-    destroyOptions(mid);
-    renderOptions(mid).then(state => { if (state) optionsStates.set(mid, state); });
-  }).stop);
-  stops.push(eventOn(tavern_events.MESSAGE_EDITED, (mid: number) => {
-    destroyOptions(mid);
-    renderOptions(mid).then(state => { if (state) optionsStates.set(mid, state); });
-  }).stop);
-  stops.push(eventOn(tavern_events.MESSAGE_DELETED, (mid: number) => {
-    destroyOptions(mid);
-  }).stop);
-  stops.push(eventOn('chatLoaded' as EventType, () => {
-    optionsStates.forEach((_, mid) => destroyOptions(mid));
-    renderAllOptions();
-  }).stop);
+  stops.push(
+    eventOn(tavern_events.CHARACTER_MESSAGE_RENDERED, (mid: number) => {
+      destroyOptions(mid);
+      renderOptions(mid).then(state => {
+        if (state) optionsStates.set(mid, state);
+      });
+    }).stop,
+  );
+  stops.push(
+    eventOn(tavern_events.MESSAGE_EDITED, (mid: number) => {
+      destroyOptions(mid);
+      renderOptions(mid).then(state => {
+        if (state) optionsStates.set(mid, state);
+      });
+    }).stop,
+  );
+  stops.push(
+    eventOn(tavern_events.MESSAGE_SWIPED, (mid: number) => {
+      destroyOptions(mid);
+      renderOptions(mid).then(state => {
+        if (state) optionsStates.set(mid, state);
+      });
+    }).stop,
+  );
+  stops.push(
+    eventOn(tavern_events.MESSAGE_DELETED, (mid: number) => {
+      destroyOptions(mid);
+    }).stop,
+  );
+  stops.push(
+    eventOn('chatLoaded' as EventType, () => {
+      optionsStates.forEach((_, mid) => destroyOptions(mid));
+      renderAllOptions();
+    }).stop,
+  );
 
   renderAllOptions();
 

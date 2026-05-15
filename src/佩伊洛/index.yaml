@@ -583,7 +583,19 @@
       id: f31a080d-a4e4-4352-8cdd-7f0211e2d96f
       启用: true
       查找表达式: /<(roleplay_options)>\s*(?:```.*\n)?((?:(?!<\1>)[\s\S])*?)(?:\n```)?\s*<\/\1>/mi
-      文件: 正则\美化选择框
+      替换为: ''
+      来源:
+        用户输入: false
+        AI输出: true
+      作用于:
+        仅格式显示: true
+        仅格式提示词: false
+
+    - 正则名称: '[清理显示]galgame标签'
+      id: 8f7e6d5c-4b3a-2c1d-0e9f-8a7b6c5d4e3f
+      启用: true
+      查找表达式: /<(galgame)>[\s\S]*?<\/\1>/gmi
+      替换为: ''
       来源:
         用户输入: false
         AI输出: true
