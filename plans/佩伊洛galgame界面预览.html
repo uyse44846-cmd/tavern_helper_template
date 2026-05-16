@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>佩伊洛 Galgame 界面 · 视觉预览</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Microsoft YaHei',
+          'Segoe UI',
+          -apple-system,
+          sans-serif;
+        background: #1a1820;
+        color: #e8e0d8;
+        padding: 24px;
+        line-height: 1.6;
+      }
+
+      .preview-page {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #d4616f 0%, #5b88a8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        text-align: center;
+        color: #8a8290;
+        font-size: 14px;
+        margin-bottom: 32px;
+      }
+
+      .section-label {
+        font-size: 14px;
+        color: #c0b5be;
+        margin: 32px 0 12px;
+        padding-left: 12px;
+        border-left: 3px solid #d4616f;
+        font-weight: 600;
+      }
+      .section-label .tag {
+        font-size: 11px;
+        background: rgba(212, 97, 111, 0.2);
+        color: #d4616f;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-left: 6px;
+        font-weight: normal;
+      }
+
+      /* ============ Galgame 主容器 ============ */
+      .galgame-container {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        background: #000;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(212, 97, 111, 0.15);
+        user-select: none;
+        margin-bottom: 20px;
+      }
+
+      /* 顶部标题栏 */
+      .gal-titlebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to right, rgba(212, 97, 111, 0.85) 0%, rgba(91, 136, 168, 0.85) 100%);
+        color: #fefcfa;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(8px);
+      }
+      .gal-titlebar .ornament {
+        font-size: 16px;
+        color: #fff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      }
+      .gal-titlebar .title-text {
+        margin: 0 16px;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        font-style: italic;
+      }
+
+      /* 背景层 */
+      .gal-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: opacity 1.2s ease;
+      }
+
+      /* 立绘层 */
+      .gal-tachie {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 90%;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+        pointer-events: none;
+      }
+
+      /* 装饰元素 */
+      .gal-decor {
+        position: absolute;
+        font-size: 24px;
+        opacity: 0.6;
+        z-index: 5;
+        pointer-events: none;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+      }
+      .gal-decor.butterfly {
+        top: 64px;
+        right: 28px;
+        color: #5b88a8;
+      }
+      .gal-decor.snowflake {
+        bottom: 200px;
+        left: 28px;
+        color: #d4dfe8;
+        font-size: 20px;
+      }
+
+      /* 控制栏 */
+      .gal-ctrl {
+        position: absolute;
+        top: 50px;
+        right: 16px;
+        z-index: 40;
+        display: flex;
+        gap: 8px;
+      }
+      .gal-ctrl button {
+        background: rgba(254, 252, 250, 0.88);
+        border: 1px solid rgba(212, 97, 111, 0.25);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6d4555;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(6px);
+        transition: all 0.2s ease;
+      }
+      .gal-ctrl button:hover {
+        transform: translateY(-2px);
+        background: rgba(254, 252, 250, 1);
+        border-color: rgba(212, 97, 111, 0.5);
+      }
+
+      /* 对话框 */
+      .gal-dialog {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding-top: 60px;
+        z-index: 30;
+        background: linear-gradient(
+          to bottom,
+          rgba(254, 252, 250, 0) 0px,
+          rgba(254, 252, 250, 0.93) 60px,
+          rgba(254, 252, 250, 0.95) 100%
+        );
+      }
+      .gal-dialog-inner {
+        padding: 0 8% 24px;
+      }
+      .gal-speaker {
+        font-size: 20px;
+        font-weight: 700;
+        color: #b54858;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+        margin-bottom: 6px;
+      }
+      .gal-divider {
+        height: 1px;
+        background: linear-gradient(to right, rgba(212, 97, 111, 0.7) 0%, rgba(91, 136, 168, 0.7) 100%);
+        margin-bottom: 10px;
+      }
+      .gal-speech {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #3d2b35;
+        letter-spacing: 0.02em;
+        min-height: 3.4em;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+      }
+      /* 打字光标 */
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: #d4616f;
+        vertical-align: text-bottom;
+        margin-left: 2px;
+        animation: blink 1s steps(2, jump-none) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* CG 模式 - 对话框深色版 */
+      .gal-dialog.is-cg {
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0px,
+          rgba(0, 0, 0, 0.75) 60px,
+          rgba(0, 0, 0, 0.85) 100%
+        );
+      }
+      .gal-dialog.is-cg .gal-speaker {
+        color: #ffb0b8;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+      }
+      .gal-dialog.is-cg .gal-speech {
+        color: #fefcfa;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+      }
+      .gal-dialog.is-cg .gal-divider {
+        background: linear-gradient(to right, rgba(255, 176, 184, 0.5) 0%, rgba(178, 201, 222, 0.5) 100%);
+      }
+
+      /* ============ 选择框（屏幕中央） ============ */
+      .gal-choice-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8%;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(1px);
+      }
+      .gal-choice-box {
+        width: 100%;
+        max-width: 580px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .gal-choice-item {
+        position: relative;
+        background: rgba(254, 252, 250, 0.94);
+        border: 1px solid rgba(212, 97, 111, 0.2);
+        border-radius: 14px;
+        padding: 14px 20px 14px 32px;
+        cursor: pointer;
+        text-align: left;
+        font-size: 14px;
+        color: #3d2b35;
+        letter-spacing: 0.04em;
+        font-weight: 500;
+        line-height: 1.55;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+        font-family: inherit;
+      }
+      .gal-choice-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #d4616f, #5b88a8);
+        border-radius: 14px 0 0 14px;
+      }
+      .gal-choice-item::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 14px;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d4616f;
+        box-shadow: 0 0 8px rgba(212, 97, 111, 0.5);
+      }
+      .gal-choice-item:hover {
+        transform: translateY(-3px);
+        background: rgba(254, 252, 250, 1);
+        border-color: rgba(212, 97, 111, 0.6);
+        box-shadow: 0 10px 28px rgba(212, 97, 111, 0.2);
+      }
+      .gal-choice-title {
+        font-size: 12px;
+        color: #b54858;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+      }
+      .gal-choice-content {
+        color: #3d2b35;
+      }
+
+      .color-swatch {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: #252028;
+        border-radius: 10px;
+      }
+      .swatch-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #c0b5be;
+      }
+      .swatch-color {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .feature-note {
+        background: rgba(37, 32, 40, 0.6);
+        border-left: 3px solid #5b88a8;
+        padding: 10px 14px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: #b8b0bc;
+        margin-bottom: 12px;
+      }
+      .feature-note strong {
+        color: #d4dfe8;
+      }
+
+      .fallback-note {
+        background: rgba(212, 97, 111, 0.08);
+        border: 1px dashed rgba(212, 97, 111, 0.33);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #d4a8af;
+        margin-top: 12px;
+      }
+
+      .specs-box {
+        background: #252028;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.9;
+        color: #c0b5be;
+      }
+      .specs-box strong {
+        color: #d4dfe8;
+      }
+      .specs-box code {
+        background: #1a1820;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: #d4a8af;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-page">
+      <h1>佩伊洛专属流式 Galgame 界面 · 视觉预览</h1>
+      <p class="subtitle">红 + 蓝 + 白 · 优雅清冷</p>
+
+      <!-- 配色板 -->
+      <div class="section-label">配色提取（基于角色形象） <span class="tag">色板</span></div>
+      <div class="color-swatch">
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: #d4616f"></div>
+          <span>红瞳 · #d4616f</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: #5b88a8"></div>
+          <span>蝶卡 · #5b88a8</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: #fefcfa; border: 1px solid #ddd"></div>
+          <span>雪白 · #fefcfa</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: #b54858"></div>
+          <span>发言名 · #b54858</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: #3d2b35"></div>
+          <span>正文 · #3d2b35</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-color" style="background: linear-gradient(to bottom, #d4616f, #5b88a8)"></div>
+          <span>主渐变</span>
+        </div>
+      </div>
+
+      <!-- 场景 1：普通对话（流式打字中） -->
+      <div class="section-label">场景 1：普通对话 · 正在打字（流式生成中） <span class="tag">流式</span></div>
+      <div class="feature-note">
+        AI 一输出 <strong>&lt;galgame&gt;</strong> 标签头即立即挂载界面外壳，文字通过 gsap SplitText
+        逐字淡入打字效果出现。 顶部进度 <strong>1/12?</strong> 中的
+        <strong>?</strong> 表示流式还未结束，总数仍可能增加。
+      </div>
+      <div class="galgame-container">
+        <!-- 标题栏 -->
+        <div class="gal-titlebar">
+          <span class="ornament">✦</span>
+          <span class="title-text">𝓟𝓮𝔂𝓻𝓸 · 佩 伊 洛</span>
+          <span class="ornament">✦</span>
+        </div>
+
+        <!-- 背景 -->
+        <div class="gal-bg" style="background-image: url('../背景/家中玄关/白天.jpg')"></div>
+
+        <!-- 立绘 -->
+        <img class="gal-tachie" src="../角色立绘/校服/微笑.png" alt="校服微笑" />
+
+        <!-- 装饰 -->
+        <div class="gal-decor butterfly">🦋</div>
+        <div class="gal-decor snowflake">❄</div>
+
+        <!-- 控制栏 -->
+        <div class="gal-ctrl">
+          <button>1/12?</button>
+          <button>日志</button>
+          <button>隐藏UI</button>
+        </div>
+
+        <!-- 对话框 -->
+        <div class="gal-dialog">
+          <div class="gal-dialog-inner">
+            <div class="gal-speaker">佩伊洛</div>
+            <div class="gal-divider"></div>
+            <div class="gal-speech">今天我们一起走吧？……嗯，其实每天都一起走的<span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景 2：旁白 -->
+      <div class="section-label">场景 2：旁白 · 不显示发言人名字 <span class="tag">旁白</span></div>
+      <div class="feature-note">
+        speaker 为 <strong>旁白</strong> 或 <strong>独白</strong> 时，发言人名字位置留白，专注于环境描述。
+      </div>
+      <div class="galgame-container">
+        <div class="gal-titlebar">
+          <span class="ornament">✦</span>
+          <span class="title-text">𝓟𝓮𝔂𝓻𝓸 · 佩 伊 洛</span>
+          <span class="ornament">✦</span>
+        </div>
+        <div class="gal-bg" style="background-image: url('../背景/樱花街/白天.jpg')"></div>
+        <img class="gal-tachie" src="../角色立绘/校服/微微脸红.png" alt="校服微微脸红" />
+        <div class="gal-decor butterfly">🦋</div>
+        <div class="gal-decor snowflake">❄</div>
+        <div class="gal-ctrl">
+          <button>3/12</button>
+          <button>日志</button>
+          <button>隐藏UI</button>
+        </div>
+        <div class="gal-dialog">
+          <div class="gal-dialog-inner">
+            <div class="gal-speaker" style="visibility: hidden">·</div>
+            <div class="gal-divider"></div>
+            <div class="gal-speech">风吹过樱花林，粉白的花瓣像雪一样飘落，佩伊洛的白发也跟着轻轻飞舞。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景 3：选择框（屏幕中央） -->
+      <div class="section-label">场景 3：选择框 · galgame 播放完毕后从底部淡入 <span class="tag">选择框</span></div>
+      <div class="feature-note">
+        所有对话播放完毕时 <strong>store.has_ended === true</strong> 触发选择框显示。 点击 →
+        <strong>triggerSlash('/setinput ...')</strong> 写入输入框（与现有 RoleplayOptions.vue 行为一致）。
+        左侧红蓝渐变线条 + 红色圆点对应角色红瞳。
+      </div>
+      <div class="galgame-container">
+        <div class="gal-titlebar">
+          <span class="ornament">✦</span>
+          <span class="title-text">𝓟𝓮𝔂𝓻𝓸 · 佩 伊 洛</span>
+          <span class="ornament">✦</span>
+        </div>
+        <div class="gal-bg" style="background-image: url('../背景/樱花街/傍晚.jpg')"></div>
+        <img
+          class="gal-tachie"
+          src="../角色立绘/连衣裙/害羞.png"
+          alt="连衣裙害羞"
+          style="opacity: 0.6; filter: blur(1px) drop-shadow(0 0 10px rgba(0, 0, 0, 0.25))"
+        />
+        <div class="gal-decor butterfly">🦋</div>
+        <div class="gal-decor snowflake">❄</div>
+        <div class="gal-ctrl">
+          <button>重播</button>
+          <button>日志</button>
+          <button>隐藏UI</button>
+        </div>
+
+        <!-- 选择框遮罩 + 选项 -->
+        <div class="gal-choice-overlay">
+          <div class="gal-choice-box">
+            <button class="gal-choice-item">
+              <div class="gal-choice-title">◆ 温柔回应</div>
+              <div class="gal-choice-content">「确实，和你在一起看的风景都是最美的。」</div>
+            </button>
+            <button class="gal-choice-item">
+              <div class="gal-choice-title">◆ 逗她一下</div>
+              <div class="gal-choice-content">故意吹气把樱花花瓣吹到她脸上</div>
+            </button>
+            <button class="gal-choice-item">
+              <div class="gal-choice-title">◆ 继续追问</div>
+              <div class="gal-choice-content">「你呢？最喜欢哪一种花？」</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景 4：CG 模式 -->
+      <div class="section-label">场景 4：CG 模式 · 预留实现（无图也能跑） <span class="tag">CG模式</span></div>
+      <div class="feature-note">
+        当 background 以 <strong>CG/</strong> 开头时自动切换： <strong>立绘消失</strong> + 背景
+        <strong>object-fit: contain</strong> 保留完整比例 + 对话框变深色（保证 CG 上文字可读）+ 控制栏多出
+        <strong>放大</strong> 按钮。
+      </div>
+      <div class="galgame-container" style="background: #0a0610">
+        <div class="gal-titlebar">
+          <span class="ornament">✦</span>
+          <span class="title-text">𝓟𝓮𝔂𝓻𝓸 · 佩 伊 洛</span>
+          <span class="ornament">✦</span>
+        </div>
+        <!-- CG 模式：背景完整显示，无立绘（这里用樱花街傍晚作为 CG 替身演示） -->
+        <div
+          class="gal-bg"
+          style="background-image: url('../背景/樱花街/傍晚.jpg'); background-size: contain; background-color: #0a0610"
+        ></div>
+
+        <div class="gal-ctrl">
+          <button>5/12</button>
+          <button>日志</button>
+          <button>隐藏UI</button>
+          <button style="background: rgba(212, 97, 111, 0.85); color: #fff; border-color: rgba(255, 176, 184, 0.6)">
+            放大
+          </button>
+        </div>
+
+        <!-- 深色对话框 -->
+        <div class="gal-dialog is-cg">
+          <div class="gal-dialog-inner">
+            <div class="gal-speaker">佩伊洛</div>
+            <div class="gal-divider"></div>
+            <div class="gal-speech">……能、能一直待在你身边吗？哪怕只是这样，肩并肩走着也好。</div>
+          </div>
+        </div>
+      </div>
+      <div class="fallback-note">
+        💡 <strong>当前 CG 资源为空时</strong>：&lt;img&gt; onerror 触发 → 显示纯黑背景 + 提示文字「（CG
+        图片加载失败）」。对话依然正常推进，不影响主流程。
+      </div>
+
+      <!-- 场景 5：隐藏 UI -->
+      <div class="section-label">场景 5：隐藏 UI · 纯欣赏场景 <span class="tag">UI开关</span></div>
+      <div class="feature-note">
+        点击 <strong>隐藏UI</strong> 按钮后对话框消失，纯欣赏立绘+背景，再点 <strong>显示UI</strong> 恢复。
+      </div>
+      <div class="galgame-container">
+        <div class="gal-titlebar">
+          <span class="ornament">✦</span>
+          <span class="title-text">𝓟𝓮𝔂𝓻𝓸 · 佩 伊 洛</span>
+          <span class="ornament">✦</span>
+        </div>
+        <div class="gal-bg" style="background-image: url('../背景/学校屋顶/傍晚.jpg')"></div>
+        <img class="gal-tachie" src="../角色立绘/校服/星星眼.png" alt="校服星星眼" />
+        <div class="gal-decor butterfly">🦋</div>
+        <div class="gal-decor snowflake">❄</div>
+        <div class="gal-ctrl">
+          <button>7/12</button>
+          <button>日志</button>
+          <button>显示UI</button>
+        </div>
+        <!-- 对话框隐藏 -->
+      </div>
+
+      <!-- 视觉规格总结 -->
+      <div class="section-label">视觉规格总结 <span class="tag">规格</span></div>
+      <div class="specs-box">
+        <div><strong>容器</strong>：默认 16:9 横屏；窄屏（&lt;768px）自动切换为 3:4 竖屏</div>
+        <div><strong>标题栏</strong>：36px 高，红蓝渐变 85% 透明</div>
+        <div><strong>背景切换</strong>：Vue Transition 1.2s 淡入淡出</div>
+        <div><strong>立绘</strong>：底对齐，高度 90%，单角色居中；多角色按 (index+1)/(n+1) 分布</div>
+        <div><strong>说话角色</strong>：正常显示；其它角色 brightness(0.85) contrast(0.95) 暗化</div>
+        <div><strong>打字动画</strong>：gsap SplitText 切字 + stagger 0.04s/字（约 25 字/秒）</div>
+        <div><strong>对话框</strong>：底部固定，顶部 60px 渐变淡入；普通白底（雪白 93%）+ CG 深色底（黑 75%）</div>
+        <div><strong>选择框</strong>：屏幕中央，最多 3 个选项；左侧红蓝渐变细线 + 红色圆点</div>
+        <div><strong>控制栏</strong>：右上角悬浮，白底红边按钮组（重播/进度/日志/隐藏UI/放大）</div>
+        <div><strong>点击交互</strong>：容器点击 → 推进对话；正在打字 → 立即跳过打字</div>
+      </div>
+
+      <!-- 资源路径校验 -->
+      <div class="section-label">资源路径正确性校验 <span class="tag">关键</span></div>
+      <div class="specs-box">
+        <p style="margin-bottom: 8px">
+          <strong>本预览页使用</strong>：<code>../背景/家中玄关/白天.jpg</code> 等本地相对路径
+        </p>
+        <p style="margin-bottom: 8px">
+          <strong>实际项目运行时</strong>：<code>CDN_URL/背景/{location}/{time}.jpg</code> 与
+          <code>CDN_URL/角色立绘/{outfit}/{expression}.png</code>
+        </p>
+        <p>
+          <strong>AI 输出 YAML 字段</strong>：<code>background: 家中玄关/白天.jpg</code> 与
+          <code>tachie: 校服/微笑.png</code> 完全对应 <code>文件-立绘.yaml</code> 与
+          <code>文件-背景.yaml</code> 中的定义。
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
