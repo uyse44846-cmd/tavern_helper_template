@@ -1,40 +1,23 @@
 ---
+<%_ if (getvar('始终使用galgame界面')) { _%>
 下一回合界面选择系统:
-  判断可能情况:
-    <%_ if (!getvar('始终使用galgame界面')) { _%>
-    sprite: 常规剧情推进，生成正文剧情并在尾部附加sprite界面
-    <%_ } _%>
-    galgame: 进入感人或剧情高潮CG场景（如告白、离别、和解、NSFW等情感爆发点），使用galgame对话序列界面
-  你必须输出判断{{format_message_variable::stat_data.世界.下一回合界面选择}}对应的界面，因此必须最优先地遵守以下内容:
-    <%_ if (getvar('stat_data.世界.下一回合界面选择') === 'sprite') { _%>
-    sprite:
-      rule: the following must be inserted to the end of each reply and cannot be omitted
-      format: |-
-        <interface_analysis>
-        - which EXISTING location in `背景列表` document best describes where 佩伊洛 or <user> is currently physically located? ${地点}/${时间情况}.jpg
-        - which EXISTING tachi-e in `立绘列表` document best describes her current clothes and facial expression? ${服装}/${表情}.png
-        </interface_analysis>
-        <sprite>
-        立绘: ${刚刚选择的当前佩伊洛的立绘（仅包括校服、便服、睡衣和连衣裙）服装/表情路径}.png
-        场景: ${刚刚选择的当前佩伊洛所在的地点/时间情况路径}.jpg
-        时间: ${请检查时间变量！目前时间阶段是{{format_message_variable::stat_data.世界.时间阶段}}，请你根据剧情填写一个主观时间名称，例如'放学后'、'深夜'等}
-        </sprite>
-    <%_ } else { _%>
+  **CRITICAL OVERRIDE**: "始终使用galgame界面"开关已开启，本次必须输出galgame格式
+  你必须输出galgame界面，因此必须最优先地遵守以下内容:
     galgame:
       场景风格: <%= getvar('stat_data.世界.是否NSFW') === true ? 'galgame游戏中的R18场景' : 'galgame游戏中的关键情感爆发场景' %>
       type:
         definition: |-
           interface Chat {
             speaker: '旁白' | '独白' | string;
-            speech: string; // 当前发言者的台词
-            background: string; // `背景列表`中支持的当前所处地点位置、时间等的背景文件名
-            tachie?: string; // 如果佩伊洛在场，从`立绘列表`中选择存在的佩伊洛立绘文件名, 否则不设置
+            speech: string; /* 当前发言者的台词 */
+            background: string; /* `背景列表`中支持的当前所处地点位置、时间等的背景文件名 */
+            tachie?: string; /* 如果佩伊洛在场，从`立绘列表`中选择存在的佩伊洛立绘文件名, 否则不设置 */
           }
       rule:
-        - 本次响应专注于CG场景，**仅输出galgame界面和roleplay_options选择框，绝对禁止生成任何正文**
-        <%_ if (!getvar('始终使用galgame界面')) { _%>
-        - 输出CG场景后，你必须在本次<UpdateVariable>中更新`世界.下一回合界面选择`为'sprite'
-        <%_ } _%>
+        - "**CRITICAL FORMAT OVERRIDE** — the following rules completely override Output_format and Text_constraints for this response:"
+        - "SKIP these format components entirely: <content>, <image> — do NOT output any of them"
+        - "IGNORE any minimum word count requirement — this response has NO word count minimum"
+        - 本次响应仅按以下顺序输出 <interface_analysis> → <galgame> → <roleplay_options> → <tucao>，除此之外不输出任何其它格式组件
       format: |-
         <interface_analysis>
         - 当前时间: ...
@@ -47,12 +30,7 @@
         ${按YAML格式输出Chat[]（不少于10个Chat，不多于25个Chat），营造一个符合场景风格的、具有充足情感爆发的CG场景，留给玩家深刻印象，要注重于单个场景的深刻描写，禁止过于频繁地切换背景}
         ```
         </galgame>
-        <%_ if (!getvar('始终使用galgame界面')) { _%>
-        <UpdateVariable>
-        ${将`世界.下一回合界面选择`更新为'sprite'}
-        ...
-        </UpdateVariable>
-        <%_ } _%>
+        <tucao>${吐槽/总结}</tucao>
       example: |-
         <galgame>
         ```yaml
@@ -74,4 +52,85 @@
           tachie: 校服/害羞.png
         ```
         </galgame>
-    <%_ } _%>
+<%_ } else { _%>
+下一回合界面选择系统:
+  判断可能情况:
+    # :<%_ if (!getvar('始终使用galgame界面')) { _%>
+    sprite: 常规剧情推进，生成正文剧情并在尾部附加sprite界面
+    # :<%_ } _%>
+    galgame: 进入感人或剧情高潮CG场景（如告白、离别、和解、NSFW等情感爆发点），使用galgame对话序列界面
+  你必须输出判断{{format_message_variable::stat_data.世界.下一回合界面选择}}对应的界面，因此必须最优先地遵守以下内容:
+    # :<%_ if (getvar('stat_data.世界.下一回合界面选择') === 'sprite') { _%>
+    sprite:
+      rule: the following must be inserted to the end of each reply and cannot be omitted
+      format: |-
+        <interface_analysis>
+        - which EXISTING location in `背景列表` document best describes where 佩伊洛 or <user> is currently physically located? ${地点}/${时间情况}.jpg
+        - which EXISTING tachi-e in `立绘列表` document best describes her current clothes and facial expression? ${服装}/${表情}.png
+        </interface_analysis>
+        <sprite>
+        立绘: ${刚刚选择的当前佩伊洛的立绘（仅包括校服、便服、睡衣和连衣裙）服装/表情路径}.png
+        场景: ${刚刚选择的当前佩伊洛所在的地点/时间情况路径}.jpg
+        时间: ${请检查时间变量！目前时间阶段是{{format_message_variable::stat_data.世界.时间阶段}}，请你根据剧情填写一个主观时间名称，例如'放学后'、'深夜'等}
+        </sprite>
+    # :<%_ } else { _%>
+    galgame:
+      场景风格: <%= getvar('stat_data.世界.是否NSFW') === true ? 'galgame游戏中的R18场景' : 'galgame游戏中的关键情感爆发场景' %>
+      type:
+        definition: |-
+          interface Chat {
+            speaker: '旁白' | '独白' | string;
+            speech: string; /* 当前发言者的台词 */
+            background: string; /* `背景列表`中支持的当前所处地点位置、时间等的背景文件名 */
+            tachie?: string; /* 如果佩伊洛在场，从`立绘列表`中选择存在的佩伊洛立绘文件名, 否则不设置 */
+          }
+      rule:
+        - "**CRITICAL FORMAT OVERRIDE** — the following rules completely override Output_format and Text_constraints for this response:"
+        - "SKIP these format components entirely: <content>, <image> — do NOT output any of them"
+        - "IGNORE any minimum word count requirement — this response has NO word count minimum"
+        - 本次响应仅按以下顺序输出 <interface_analysis> → <galgame> → <roleplay_options> → <tucao>，除此之外不输出任何其它格式组件
+        # :<%_ if (!getvar('始终使用galgame界面')) { _%>
+        - 输出CG场景后，你必须在本次<UpdateVariable>中更新`世界.下一回合界面选择`为'sprite'
+        # :<%_ } _%>
+      format: |-
+        <interface_analysis>
+        - 当前时间: ...
+        - 角色所在地点: ...
+        - 将使用的`背景列表`中的背景: ...
+        - 将使用的`立绘列表`中的立绘: ...
+        </interface_analysis>
+        <galgame>
+        ```yaml
+        ${按YAML格式输出Chat[]（不少于10个Chat，不多于25个Chat），营造一个符合场景风格的、具有充足情感爆发的CG场景，留给玩家深刻印象，要注重于单个场景的深刻描写，禁止过于频繁地切换背景}
+        ```
+        </galgame>
+        # :<%_ if (!getvar('始终使用galgame界面')) { _%>
+        <UpdateVariable>
+        ${将`世界.下一回合界面选择`更新为'sprite'}
+        ...
+        </UpdateVariable>
+        # :<%_ } _%>
+        <tucao>${吐槽/总结}</tucao>
+      example: |-
+        <galgame>
+        ```yaml
+        - speaker: 佩伊洛
+          speech: 今天的风有点大呢，走在路上差点被吹跑了！
+          background: 学校路上/白天.jpg
+          tachie: 校服/微笑.png
+        - speaker: 佩伊洛
+          speech: 不过看到路边的樱花开得这么漂亮，心情一下子就变好了。
+          background: 学校路上/白天.jpg
+          tachie: 校服/星星眼.png
+        - speaker: <user>
+          speech: 我也觉得今天的景色特别美，尤其是你站在花瓣下的时候。
+          background: 学校路上/白天.jpg
+          tachie: 校服/微微脸红.png
+        - speaker: 旁白
+          speech: 风吹过樱花林，粉白的花瓣像雪一样飘落，佩伊洛的白发也跟着轻轻飞舞。
+          background: 樱花街/白天.jpg
+          tachie: 校服/害羞.png
+        ```
+        </galgame>
+    # :<%_ } _%>
+<%_ } _%>

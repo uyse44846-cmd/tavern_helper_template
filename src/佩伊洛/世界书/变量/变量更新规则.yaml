@@ -40,8 +40,12 @@
     下一回合界面选择:
       type: |-
         <%= getvar('始终使用galgame界面') ? "'galgame'" : "'sprite' | 'galgame'" %>
-      check: <%_ if (getvar('始终使用galgame界面')) { _%>
-        - 必须始终设为 'galgame'，禁止设为其他值
+      check: |-
+        <%_ if (getvar('始终使用galgame界面')) { _%>
+        - **CRITICAL**: 必须始终保持为 'galgame'，严禁设为其他任何值
+        - 即使当前值已经是 'galgame'，也不要改动，保持原值
+        - 注意：变量守护脚本会自动强制覆盖为 'galgame'，因此你无需手动重置
+        - 在<UpdateVariable>中保持此字段为 'galgame' 即可
         <%_ } else { _%>
         - default to 'sprite' if no special situation
         - reset to 'sprite' when the current value is not 'sprite'

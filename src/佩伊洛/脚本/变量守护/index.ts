@@ -14,6 +14,8 @@ $(async () => {
     } catch {
       _alwaysGalgame = false;
     }
+    // 将开关状态写入聊天变量，让 EJS getvar('始终使用galgame界面') 能正确读取
+    insertOrAssignVariables({ 始终使用galgame界面: _alwaysGalgame }, { type: 'chat' });
   }
 
   // 初始化时读取一次
@@ -22,6 +24,20 @@ $(async () => {
   // 监听世界书更新事件，刷新缓存
   eventOn('worldinfo_updated' as any, () => {
     refreshAlwaysGalgame();
+  });
+
+  // 监听聊天切换事件，重新同步开关状态
+  eventOn(tavern_events.CHAT_CHANGED, () => {
+    refreshAlwaysGalgame();
+  });
+
+  // 生成开始时强制覆盖变量，确保 {{format_message_variable::}} 宏也显示正确值
+  eventOn(tavern_events.GENERATION_STARTED, () => {
+    if (_alwaysGalgame) {
+      updateVariablesWith(variables => _.set(variables, 'stat_data.世界.下一回合界面选择', 'galgame'), {
+        type: 'message',
+      });
+    }
   });
 
   eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {

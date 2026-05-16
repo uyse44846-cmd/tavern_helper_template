@@ -61,7 +61,7 @@
       类型: 指定深度
       角色: 系统
       深度: 0
-      顺序: 14700
+      顺序: 1010
     递归:
       不可被其他条目激活: true
       不可激活其他条目: true
@@ -103,7 +103,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14720
+          顺序: 100
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -117,7 +117,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14720
+          顺序: 1020
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -131,7 +131,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14720
+          顺序: 1021
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -145,7 +145,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14720
+          顺序: 1022
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -165,7 +165,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 200
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -177,7 +177,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 201
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -189,7 +189,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 202
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -201,7 +201,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 203
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -221,7 +221,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之后
-          顺序: 14710
+          顺序: 100
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -233,7 +233,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之后
-          顺序: 14711
+          顺序: 101
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -245,7 +245,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之后
-          顺序: 14712
+          顺序: 102
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -257,7 +257,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之后
-          顺序: 14712
+          顺序: 103
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -271,7 +271,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14713
+          顺序: 1030
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -293,7 +293,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14730
+          顺序: 1040
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -307,7 +307,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14731
+          顺序: 1041
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -321,7 +321,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14732
+          顺序: 1042
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -335,7 +335,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14733
+          顺序: 1043
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -349,7 +349,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14734
+          顺序: 1044
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -363,7 +363,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14735
+          顺序: 1045
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -377,7 +377,7 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14736
+          顺序: 1046
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -397,7 +397,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 300
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -409,7 +409,7 @@
           类型: 蓝灯
         插入位置:
           类型: 角色定义之前
-          顺序: 14700
+          顺序: 301
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -422,8 +422,8 @@
         插入位置:
           类型: 指定深度
           角色: 系统
-          深度: 0
-          顺序: 14720
+          深度: 4
+          顺序: 1014
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
@@ -437,11 +437,39 @@
           类型: 指定深度
           角色: 系统
           深度: 0
-          顺序: 14720
+          顺序: 1001
         递归:
           不可被其他条目激活: true
           不可激活其他条目: true
         文件: 世界书/下一回合界面选择强调
+
+      - 名称: 选择框
+        启用: true
+        激活策略:
+          类型: 蓝灯
+        插入位置:
+          类型: 指定深度
+          角色: 系统
+          深度: 4
+          顺序: 1011
+        递归:
+          不可被其他条目激活: true
+          不可激活其他条目: true
+        文件: 世界书/选择框
+
+      - 名称: 选择框强调
+        启用: true
+        激活策略:
+          类型: 蓝灯
+        插入位置:
+          类型: 指定深度
+          角色: 系统
+          深度: 0
+          顺序: 1002
+        递归:
+          不可被其他条目激活: true
+          不可激活其他条目: true
+        文件: 世界书/选择框强调
 
       - 名称: ===界面系统结束===
         <<: *分隔符
@@ -472,6 +500,42 @@
       作用于:
         仅格式显示: true
         仅格式提示词: true
+
+    - 正则名称: '[不发送]选择框'
+      id: 7c4a9e1b-3d5f-4a82-b1c6-8e2d0f5a7b3c
+      启用: true
+      查找表达式: /<(roleplay_options)>\s*(?:```.*\n)?((?:(?!<\1>)[\s\S])*?)(?:\n```)?\s*<\/\1>/mi
+      替换为: ''
+      来源:
+        用户输入: false
+        AI输出: true
+      作用于:
+        仅格式显示: false
+        仅格式提示词: true
+
+    - 正则名称: '[不发送]sprite选择框'
+      id: 8b5c2d3e-4f6a-7b8c-9d0e-1f2a3b4c5d6e
+      启用: true
+      查找表达式: /<(sprite_choices)>\s*(?:```.*\n)?((?:(?!<\1>)[\s\S])*?)(?:\n```)?\s*<\/\1>/mi
+      替换为: ''
+      来源:
+        用户输入: false
+        AI输出: true
+      作用于:
+        仅格式显示: false
+        仅格式提示词: true
+
+    - 正则名称: '内嵌选择框标签'
+      id: d2e8f4a1-6b3c-4d7e-9a5f-1c0b8e3d6f2a
+      启用: true
+      查找表达式: /<(sprite_choices)>\s*(?:```.*\n)?((?:(?!<\1>)[\s\S])*?)(?:\n```)?\s*<\/\1>/mi
+      文件: 正则/内嵌选择框标签
+      来源:
+        用户输入: false
+        AI输出: true
+      作用于:
+        仅格式显示: true
+        仅格式提示词: false
 
     - 正则名称: '[折叠]变量更新中'
       id: ea96523f-a1cc-4634-b9d2-f28531adca6c
@@ -511,7 +575,7 @@
       id: b50d0bed-ff40-4a25-9ada-14feb4283324
       启用: true
       查找表达式: <sprite>\s*(?:立绘:\s*(\S*)|[\s\S]*?)\s*(?:场景:\s*(\S*)|[\s\S]*?)\s*(?:时间:\s*(\S*)|[\s\S]*?)\s*(?:<\/sprite>|$)
-      替换为: '<style>.portrait{position:relative;width:90%;max-width:800px;height:100%;overflow:hidden;padding:15px;box-sizing:border-box;margin:0 auto;border-radius:12px}.background{width:100%;height:100%;object-fit:cover;border-radius:12px}.character{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);height:85%;width:auto;object-fit:contain;padding:0 10px}.info-widgets{position:absolute;bottom:30px;right:30px;display:flex;flex-direction:column;gap:8px;background-color:rgba(255,255,255,0.25);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:12px;border-radius:16px;color:#333;font-family:Arial,sans-serif;font-size:14px;z-index:10;max-width:180px;background-image:linear-gradient(135deg,rgba(255,255,255,0.3),rgba(255,231,240,0.4))}.widget-item{display:flex;align-items:center;gap:5px}.widget-icon{width:16px;height:16px;display:inline-flex;justify-content:center;align-items:center;color:#ff9cbb}.widget-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}@media screen and (max-width:999px){.portrait{width:100%;aspect-ratio:4/3;padding:0;max-width:none;display:flex;flex-direction:column;background:rgba(255,255,255,0);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.background{width:100%;height:calc(100% - 60px);object-position:center;border-radius:12px 12px 0 0}.character{height:70%;width:auto;bottom:60px;max-height:95%;padding:0 5px}.info-widgets{position:relative;bottom:0;right:0;width:100%;padding:10px;font-size:12px;max-width:none;flex-direction:row;justify-content:space-around;gap:0;border-radius:0 0 12px 12px;background-color:#eeeeee;border-top:1px solid #ddd}.widget-item{flex:1;justify-content:center}.widget-icon{font-size:16px;width:18px;height:18px}}</style><div class="portrait"><img class="background" src="https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/背景/$2"/> <img class="character" src="https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/角色立绘/$1"/><div class="info-widgets"><div class="widget-item"><div class="widget-icon">🕒</div><div class="widget-text"><span id="time-display">$3</span></div></div><div class="widget-item"><div class="widget-icon">📍</div><div class="widget-text"><span id="location-display">$2</span></div></div><div class="widget-item"><div class="widget-icon">😊</div><div class="widget-text"><span id="character-display">$1</span></div></div></div></div>'
+      替换为: '<style>.portrait{position:relative;width:90%;max-width:800px;height:100%;overflow:hidden;padding:15px;box-sizing:border-box;margin:0 auto;border-radius:12px}.background{width:100%;height:100%;object-fit:cover;border-radius:12px}.character{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);height:85%;width:auto;object-fit:contain;padding:0 10px}.info-widgets{position:absolute;bottom:30px;right:30px;display:flex;flex-direction:column;gap:8px;background-color:rgba(255,255,255,0.25);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:12px;border-radius:16px;color:#333;font-family:Arial,sans-serif;font-size:14px;z-index:10;max-width:180px;background-image:linear-gradient(135deg,rgba(255,255,255,0.3),rgba(255,231,240,0.4))}.widget-item{display:flex;align-items:center;gap:5px}.widget-icon{width:16px;height:16px;display:inline-flex;justify-content:center;align-items:center;color:#ff9cbb}.widget-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}@media screen and (max-width:999px){.portrait{width:100%;aspect-ratio:4/3;padding:0;max-width:none;display:flex;flex-direction:column;background:rgba(255,255,255,0);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.background{width:100%;height:calc(100% - 60px);object-position:center;border-radius:12px 12px 0 0}.character{height:70%;width:auto;bottom:60px;max-height:95%;padding:0 5px}.info-widgets{position:relative;bottom:0;right:0;width:100%;padding:10px;font-size:12px;max-width:none;flex-direction:row;justify-content:space-around;gap:0;border-radius:0 0 12px 12px;background-color:#eeeeee;border-top:1px solid #ddd}.widget-item{flex:1;justify-content:center}.widget-icon{font-size:16px;width:18px;height:18px}}</style><div class="portrait"><img class="background" src="https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/背景/$2"/> <img class="character" src="https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/角色立绘/$1"/><div class="info-widgets"><div class="widget-item"><div class="widget-icon">🕒</div><div class="widget-text"><span id="time-display">$3</span></div></div><div class="widget-item"><div class="widget-icon">📍</div><div class="widget-text"><span id="location-display">$2</span></div></div><div class="widget-item"><div class="widget-icon">😊</div><div class="widget-text"><span id="character-display">$1</span></div></div></div></div>'
       来源:
         用户输入: true
         AI输出: true
@@ -527,7 +591,7 @@
         ```
         <body>
         <script>
-        $('body').load('https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/界面/欢迎页/index.html')
+        $('body').load('https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/界面/欢迎页/index.html')
         </script>
         </body>
         ```
@@ -552,18 +616,18 @@
         启用: true
         类型: 脚本
         内容: |-
-          import 'https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/脚本/变量结构/index.js';
+          import 'https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/脚本/变量结构/index.js';
 
       - 名称: 变量守护
         id: a3c8e5d2-7f14-4b9a-b6e1-9d2f0c4a8b17
         启用: true
         类型: 脚本
         内容: |-
-          import 'https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/脚本/变量守护/index.js';
+          import 'https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/脚本/变量守护/index.js';
 
       - 名称: 流式楼层界面
         id: 64b783a9-7c0d-4c66-9ef0-1ec72b87c3d5
         启用: true
         类型: 脚本
         内容: |-
-          import 'https://testingcf.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@main/dist/佩伊洛/脚本/流式楼层界面/index.js';
+          import 'https://cdn.jsdelivr.net/gh/uyse44846-cmd/tavern_helper_template@v1/dist/佩伊洛/脚本/流式楼层界面/index.js';
