@@ -33,6 +33,7 @@
           "type": "boolean"
         },
         "是否处于NSFW场景": {
+          "default": false,
           "type": "boolean"
         },
         "下一回合界面选择": {
@@ -103,9 +104,11 @@
               ]
             },
             "主题": {
+              "default": "",
               "type": "string"
             },
             "描述": {
+              "default": "",
               "type": "string"
             },
             "大纲": {
@@ -113,15 +116,19 @@
               "type": "object",
               "properties": {
                 "引入": {
+                  "default": "",
                   "type": "string"
                 },
                 "发展": {
+                  "default": "",
                   "type": "string"
                 },
                 "高潮": {
+                  "default": "",
                   "type": "string"
                 },
                 "结局": {
+                  "default": "",
                   "type": "string"
                 }
               }
@@ -140,10 +147,12 @@
           "type": "number"
         },
         "阅读日记数量": {
+          "default": 0,
           "type": "number",
           "minimum": 0
         },
         "拥有联系方式": {
+          "default": false,
           "type": "boolean"
         }
       },
