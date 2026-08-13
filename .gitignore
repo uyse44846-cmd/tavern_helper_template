@@ -4,7 +4,10 @@ node_modules
 Thumbs.db
 
 *.log
+<<<<<<< HEAD
 *.map
+=======
+>>>>>>> c6777179271f97bed734047fcdd7a3d0067157ec
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
